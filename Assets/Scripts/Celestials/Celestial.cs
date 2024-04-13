@@ -23,29 +23,9 @@ public class Celestial : MonoBehaviour
     public void OnMouseDown()
     {
         UIManager.instance.CelestialSelected(this);
-        GetSpaceShips();
+        CelestialsManager.instance.GetSpaceShipsInCelestial(uuid);
     }
-
-    public void GetSpaceShips()
-    {
-        Options options = new(false, true, celestialClass.uuid);
-        Data data = new(celestialClass.toString(), options);
-
-        Command command = new(data, ObjectType.spaceships, TCPCommand.get);
-
-        TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetSpaceShips);
-    }
-
-    public void HandleGetSpaceShips(string data, string request)
-    {
-        try{
-            Response<SpaceShipClass[]> response = JsonUtility.FromJson<Response<SpaceShipClass[]>>(data);
-            UIManager.instance.SetSpaceShipsForCelestialPanel(response.data);
-        }catch(Exception e){
-            Debug.LogError(e.Message);
-        }
-    }
-
+    
     public void CreateSpaceship(string name)
     {
         Options options = new();

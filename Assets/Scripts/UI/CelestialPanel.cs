@@ -39,7 +39,7 @@ public class CelestialPanel : MonoBehaviour
     public void RegenerateSpaceShips()
     {
         DestroySpaceShipsList();
-        celestial.GetSpaceShips();
+        CelestialsManager.instance.GetSpaceShipsInCelestial(celestial.uuid);
         createSpaceShipButton.interactable = true;
     }
 

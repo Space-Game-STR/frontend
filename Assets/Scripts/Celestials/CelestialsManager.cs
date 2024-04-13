@@ -36,6 +36,11 @@ public class CelestialsManager : MonoBehaviour
         }
     }
 
+    // CELESTIALS NETWORKING
+
+    /// <summary>
+    /// Method to get all celestials
+    /// </summary>
     void GetAllCelestials()
     {
         Options options = new(true, false);
@@ -46,6 +51,11 @@ public class CelestialsManager : MonoBehaviour
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetCelestials);
     }
 
+    /// <summary>
+    /// Method to handle the response from the server with the celestials
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="request"></param>
     public void HandleGetCelestials(string data, string request)
     {
         try
@@ -59,6 +69,45 @@ public class CelestialsManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to get all the spaceships in an specific celestial
+    /// </summary>
+    /// <param name="uuid"></param>
+    public void GetSpaceShipsInCelestial(string uuid)
+    {
+        Options options = new(false, true, uuid);
+        Data data = new(options);
+
+        Command command = new(data, ObjectType.spaceships, TCPCommand.get);
+
+        TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetSpaceShipsInCelestial);
+    }
+
+    /// <summary>
+    /// Method to handle all the spaceships in an specific celestial
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="request"></param>
+    void HandleGetSpaceShipsInCelestial(string data, string request)
+    {
+        try
+        {
+            Response<SpaceShipClass[]> response = JsonUtility.FromJson<Response<SpaceShipClass[]>>(data);
+            UIManager.instance.SetSpaceShipsForCelestialPanel(response.data);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
+    }
+
+
+    // CELESTIALS MANAGER METHODS
+
+    /// <summary>
+    /// Method to set all the celestials
+    /// </summary>
+    /// <param name="data"></param>
     public void SetCelestials(string data)
     {
         Response<CelestialClass[]> response = JsonUtility.FromJson<Response<CelestialClass[]>>(data);
@@ -72,6 +121,10 @@ public class CelestialsManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to instantiate a celestial object based in its class
+    /// </summary>
+    /// <param name="celestial"></param>
     private void InstantiateCelestial(CelestialClass celestial)
     {
         float x = (float)(celestial.distanceFromSun * Math.Cos(celestial.angle));
@@ -86,6 +139,11 @@ public class CelestialsManager : MonoBehaviour
         celestials.Add(celestialScript);
     }
 
+    /// <summary>
+    /// Method to see if a celestial exists by uuid
+    /// </summary>
+    /// <param name="uuid"></param>
+    /// <returns></returns>
     private bool SearchCelestial(string uuid)
     {
         for (int i = 0; i < celestials.Count; i++)
@@ -99,6 +157,11 @@ public class CelestialsManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Method to search a Celestial and return it by uuid
+    /// </summary>
+    /// <param name="uuid"></param>
+    /// <returns></returns>
     public Celestial GetCelestial(string uuid)
     {
         for (int i = 0; i < celestials.Count; i++)
