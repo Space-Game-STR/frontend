@@ -70,17 +70,27 @@ public class Options
 {
     public bool all;
     public bool fromPlanet;
+    public string uuid;
+
+    public Options(bool all, bool fromPlanet, string uuid)
+    {
+        this.all = all;
+        this.fromPlanet = fromPlanet;
+        this.uuid = uuid;
+    }
 
     public Options(bool all, bool fromPlanet)
     {
         this.all = all;
         this.fromPlanet = fromPlanet;
+        uuid = "";
     }
 
     public Options()
     {
         all = false;
         fromPlanet = false;
+        uuid = "";
     }
 }
 
