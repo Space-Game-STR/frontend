@@ -47,7 +47,7 @@ public class Celestial : MonoBehaviour
         SpaceShipClass spaceShip = new SpaceShipClass("", name, true, uuid, "", 1);
         Data data = new(spaceShip.toString(), options);
 
-        Command command = new(data, ObjectType.spaceship, TCPCommand.create);
+        Command command = new(data, ObjectType.spaceships, TCPCommand.create);
 
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleCreateSpaceShip);
     }

@@ -24,7 +24,7 @@ public class SpaceShipItem : MonoBehaviour
         CreateJourneyContent createJourneyContent = new(ship_uuid, celestial_objective_uuid);
         Data data = new(JsonUtility.ToJson(createJourneyContent), options);
 
-        Command command = new(data, ObjectType.journey, TCPCommand.create);
+        Command command = new(data, ObjectType.journeys, TCPCommand.create);
 
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleCreateJourney);
     }

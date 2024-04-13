@@ -41,7 +41,7 @@ public class CelestialsManager : MonoBehaviour
         Options options = new(true, false);
         Data data = new(options);
 
-        Command command = new(data, ObjectType.celestial, TCPCommand.get);
+        Command command = new(data, ObjectType.celestials, TCPCommand.get);
 
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetCelestials);
     }

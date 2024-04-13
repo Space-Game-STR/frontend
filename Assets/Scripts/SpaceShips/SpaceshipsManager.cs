@@ -36,7 +36,7 @@ public class SpaceshipsManager : MonoBehaviour
         Options options = new(true, false);
         Data data = new(options);
 
-        Command command = new(data, ObjectType.spaceship, TCPCommand.get);
+        Command command = new(data, ObjectType.spaceships, TCPCommand.get);
 
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetSpaceShips);
     }
@@ -112,7 +112,7 @@ public class SpaceshipsManager : MonoBehaviour
         GetSpaceShipJourney getSpaceShipJourney = new("");
         Data data = new(JsonUtility.ToJson(getSpaceShipJourney), options);
 
-        Command command = new(data, ObjectType.journey, TCPCommand.get);
+        Command command = new(data, ObjectType.journeys, TCPCommand.get);
 
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetSpaceShipJoureny);
     }

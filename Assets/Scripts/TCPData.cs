@@ -86,9 +86,9 @@ public class Options
 
 public enum ObjectType
 {
-    celestial,
-    spaceship,
-    journey,
+    celestials,
+    spaceships,
+    journeys,
     None
 }
 
