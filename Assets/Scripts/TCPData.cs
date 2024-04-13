@@ -104,3 +104,11 @@ class Empty
 {
 
 }
+
+[System.Serializable]
+public class Response<T>
+{
+    public int status;
+    public string statusMessage;
+    public T data;
+}

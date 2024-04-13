@@ -46,27 +46,29 @@ public class CelestialsManager : MonoBehaviour
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetCelestials);
     }
 
-    public void HandleGetCelestials(string data, string request) {
-        SetCelestials(data);
+    public void HandleGetCelestials(string data, string request)
+    {
+        try
+        {
+            SetCelestials(data);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error parsing " + data);
+            Debug.LogError(e);
+        }
     }
 
     public void SetCelestials(string data)
     {
-        string[] _celestials = data.Split("celestial");
-        for (int i = 0; i < _celestials.Length; i++)
-        {
-            if (_celestials[i] == "") continue;
-            try
-            {
-                CelestialClass celestial = JsonUtility.FromJson<CelestialClass>(_celestials[i]);
-                if (SearchCelestial(celestial.uuid)) continue; //We continue because it already exists
-                InstantiateCelestial(celestial);
-            }
-            catch (Exception)
-            {
-                Debug.LogWarning("Error parsing " + _celestials[i]);
-            }
+        Response<CelestialClass[]> response = JsonUtility.FromJson<Response<CelestialClass[]>>(data);
+        CelestialClass[] celestialsData = response.data;
 
+        for (int i = 0; i < celestialsData.Length; i++)
+        {
+            CelestialClass celestial = celestialsData[i];
+            if (SearchCelestial(celestial.uuid)) continue; //We continue because it already exists
+            InstantiateCelestial(celestial);
         }
     }
 

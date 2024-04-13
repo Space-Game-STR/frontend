@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class CelestialClass
 {
+    public string _id;
     public string uuid;
     public float radius;
     public float angle;
