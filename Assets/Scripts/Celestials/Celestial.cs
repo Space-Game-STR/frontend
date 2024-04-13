@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ public class Celestial : MonoBehaviour
 
     public void GetSpaceShips()
     {
-        Options options = new(false, true);
+        Options options = new(false, true, celestialClass.uuid);
         Data data = new(celestialClass.toString(), options);
 
         Command command = new(data, ObjectType.spaceships, TCPCommand.get);
@@ -37,8 +38,12 @@ public class Celestial : MonoBehaviour
 
     public void HandleGetSpaceShips(string data, string request)
     {
-        List<SpaceShipClass> spaceShips = SpaceShipClass.ResponseToList(data);
-        UIManager.instance.SetSpaceShipsForCelestialPanel(spaceShips);
+        try{
+            Response<SpaceShipClass[]> response = JsonUtility.FromJson<Response<SpaceShipClass[]>>(data);
+            UIManager.instance.SetSpaceShipsForCelestialPanel(response.data);
+        }catch(Exception e){
+            Debug.LogError(e.Message);
+        }
     }
 
     public void CreateSpaceship(string name)
