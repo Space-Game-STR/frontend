@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SpaceShipClass
 {
+    public string _id;
     public string uuid;
     public string name;
     public bool orbitingCelestial;
