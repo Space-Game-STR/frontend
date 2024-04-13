@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
         SpaceshipsManager.instance.GetSpaceShips();
     }
 
-    public void SetSpaceShipsForCelestialPanel(List<SpaceShipClass> spaceShips)
+    public void SetSpaceShipsForCelestialPanel(SpaceShipClass[] spaceShips)
     {
         celestialPanel.GetComponent<CelestialPanel>().SetSpaceShips(spaceShips);
     }

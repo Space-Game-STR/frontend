@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -50,18 +51,18 @@ public class CelestialPanel : MonoBehaviour
         }
     }
 
-    public void SetSpaceShips(List<SpaceShipClass> spaceShips)
+    public void SetSpaceShips(SpaceShipClass[] spaceShips)
     {
         SetPanelContent(spaceShips);
     }
 
-    private void SetPanelContent(List<SpaceShipClass> spaceShips)
+    private void SetPanelContent(SpaceShipClass[] spaceShips)
     {
         float itemHeight = spaceShipItemPrefab.GetComponent<RectTransform>().sizeDelta.y;
-        spaceShipsContentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(0, spaceShips.Count * itemHeight); //We set the content size to whatever the height of the item is :3
+        spaceShipsContentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(0, spaceShips.Length * itemHeight); //We set the content size to whatever the height of the item is :3
         float y = -25;
 
-        for (int i = 0; i < spaceShips.Count; i++)
+        for (int i = 0; i < spaceShips.Length; i++)
         {
             Vector3 position = new Vector3(0, y);
             GameObject item = Instantiate(spaceShipItemPrefab, spaceShipsContentTransform);
