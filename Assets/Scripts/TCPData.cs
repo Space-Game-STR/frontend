@@ -32,30 +32,30 @@ public class Command
 [System.Serializable]
 public class Data
 {
-    public string content;
+    public string @object;
     public Options options;
 
-    public Data(string content, Options options)
+    public Data(string @object, Options options)
     {
-        this.content = content;
+        this.@object = @object;
         this.options = options;
     }
 
-    public Data(string content)
+    public Data(string @object)
     {
-        this.content = content;
+        this.@object = @object;
         options = new Options();
     }
 
     public Data(Options options)
     {
-        content = JsonUtility.ToJson(new Empty());
+        @object = JsonUtility.ToJson(new Empty());
         this.options = options;
     }
 
     public Data()
     {
-        content = JsonUtility.ToJson(new Empty());
+        @object = JsonUtility.ToJson(new Empty());
         options = new Options(false, false);
     }
 
