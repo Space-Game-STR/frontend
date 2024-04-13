@@ -30,7 +30,7 @@ public class Celestial : MonoBehaviour
         Options options = new(false, true);
         Data data = new(celestialClass.toString(), options);
 
-        Command command = new(data, ObjectType.spaceship, TCPCommand.get);
+        Command command = new(data, ObjectType.spaceships, TCPCommand.get);
 
         TCPConnect.tcpClient.addRequestToQueue(command.getString(), HandleGetSpaceShips);
     }
